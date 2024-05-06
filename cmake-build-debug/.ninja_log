@@ -1,0 +1,8 @@
+# ninja log v5
+7	163	7367319089384000	CMakeFiles/CaixaEletronico.dir/Conta.c.obj	582022c399b3720f
+2	221	7367319089959187	CMakeFiles/CaixaEletronico.dir/main.c.obj	940444a1eeb7deb9
+221	368	7367319091414326	CaixaEletronico.exe	6afd2c301ca6a98c
+18	94	7367319319255744	CMakeFiles/CaixaEletronico.dir/main.c.obj	940444a1eeb7deb9
+95	192	7367319320187048	CaixaEletronico.exe	6afd2c301ca6a98c
+14	90	7367319628932230	CMakeFiles/CaixaEletronico.dir/main.c.obj	940444a1eeb7deb9
+91	189	7367319629868306	CaixaEletronico.exe	6afd2c301ca6a98c
