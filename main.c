@@ -3,7 +3,7 @@
 int main(void) {
     printf("|===================================|\n");
     printf("| Bem vindo (a) ao Caixa Eletronico |\n");
-    printf("|===================================teste|\n");
+    printf("|===================================|\n");
 
     return 0;
 }
