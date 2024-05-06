@@ -3,4 +3,6 @@ project(CaixaEletronico C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(CaixaEletronico main.c)
+add_executable(CaixaEletronico main.c
+        Conta.c
+        Conta.h)
