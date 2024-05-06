@@ -1,3 +1,0 @@
-C:/git/CaixaEletronico/cmake-build-debug/CMakeFiles/CaixaEletronico.dir
-C:/git/CaixaEletronico/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/git/CaixaEletronico/cmake-build-debug/CMakeFiles/rebuild_cache.dir
