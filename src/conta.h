@@ -3,16 +3,19 @@
 #ifndef CONTA_H
 #define CONTA_H
 
-typedef struct {
+typedef struct Conta{
     int numeroConta;  // Número da conta
     char nomeTitular[100];  // Nome do titular da conta
     double saldo;  // Saldo atual da conta
-} Conta;
+};
 
-typedef Conta *p_conta;
+// typedef Conta *p_conta;
 
-extern p_conta v[MAX];
+//extern p_conta v[MAX];
 
 void Teste();
+void LerDados(struct Conta *p_conta);
+void ImprimirDados(struct Conta *p_conta);
+
 
 #endif //CONTA_H
