@@ -3,3 +3,9 @@
 //
 
 #include "Conta.h"
+#include <stdio.h>
+
+
+void Teste(){
+    printf("Ola");
+}
