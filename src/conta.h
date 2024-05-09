@@ -18,6 +18,6 @@ void LerDados(struct Conta *p_conta);
 void ImprimirDados(struct Conta *p_conta);
 void ListarOpcoes();
 void RegistrarArquivo(char *arquivoDados, struct Conta *p_conta);
-
+void ExcluirConta(struct Conta *p_conta, char *arquivoDados);
 
 #endif //CONTA_H

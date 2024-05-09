@@ -17,19 +17,20 @@ void CadastrarConta(struct Conta *p_conta){
 }
 
 void ImprimirDados(struct Conta *p_conta){
-    printf("\nNumero da conta: %d", p_conta->numeroConta);
-    printf("\nNome: %s",p_conta->nomeTitular);
-    printf("\nSaldo: %.2lf\n", p_conta->saldo);
+    printf("Numero da conta: %d\n", p_conta->numeroConta);
+    printf("Nome: %s\n",p_conta->nomeTitular);
+    printf("Saldo: %.2lf\n", p_conta->saldo);
 }
 
 void ListarOpcoes(){
         printf("\tMenu\n");
-        printf("\t1.Visualizar saldo\n");
-        printf("\t2.Depositar\n");
-        printf("\t3.Sacar\n");
-        printf("\t4.Relatorio de movimentacoes\n");
-        printf("\t5.Listar opcoes\n");
-        printf("\t6.Sair\n");
+        printf("\t1.Visualizar conta\n");
+        printf("\t2.Excluir conta\n");
+        printf("\t3.Depositar\n");
+        printf("\t4.Sacar\n");
+        printf("\t5.Relatorio de movimentacoes\n");
+        printf("\t6.Listar opcoes\n");
+        printf("\t7.Sair\n");
 }
 
 void RegistrarArquivo(char *arquivoDados, struct Conta *p_conta){
@@ -46,5 +47,46 @@ void RegistrarArquivo(char *arquivoDados, struct Conta *p_conta){
         // Fecha o arquivo
         fclose(arquivo);
     }
+
+}
+
+void PegarDados(char *ArquivoDados, struct Conta *p_conta){
+    FILE *arquivo = fopen(ArquivoDados,"r");
+    // Verifica se o arquivo foi aberto corretamente
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    char linha[256];
+    fgets(linha, sizeof(linha),arquivo);
+    sscanf(linha, "%d",&p_conta->numeroConta);
+
+    if (fgets(linha, sizeof(linha), arquivo) != NULL) {
+        linha[strcspn(linha, "\n")] = '\0';
+    }
+
+    strcpy(p_conta->nomeTitular,linha);
+
+    fgets(linha, sizeof(linha), arquivo);
+    sscanf(linha, "%lf", &p_conta->saldo);
+
+    fclose(arquivo);
+}
+
+void ExcluirConta(struct Conta *p_conta, char *arquivoDados){
+    FILE *arquivo = fopen(arquivoDados, "w"); // Abre o arquivo em modo de escrita
+
+    // Verifica se o arquivo foi aberto corretamente
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    fclose(arquivo); // Fecha o arquivo para limpar seu conteúdo ou criar um novo arquivo vazio
+
+    p_conta->numeroConta = 0;
+    p_conta->nomeTitular[0] = '\0';
+    p_conta->saldo = 0.0;
 
 }

@@ -5,42 +5,36 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
-    printf("|===================================|\n");
-    printf("| Bem vindo (a) ao Caixa Eletronico |\n");
-    printf("|===================================|\n\n");
-    
     //Declaração de variáveis
     char arquivoDados[] = "./user/data.txt";
     char arquivosRelatorio[] = "./user/report.txt";
     int menu = 1;
     struct Conta usuario;
-    int size;
+
     FILE *p_dados;
     p_dados = fopen(arquivoDados,"a+");
-    
+
+    printf("---------------------------------------\n");
+    printf("-- Bem vindo (a) ao Caixa Eletronico --\n");
+    printf("---------------------------------------\n\n");
+
+
     // Verifica se o arquivo foi aberto corretamente
     if(NULL != p_dados){
         fseek (p_dados, 0, SEEK_END);
-        size = ftell(p_dados);
+        int size = ftell(p_dados);
         if(size == 0){
             // Condição: Arquivo vazio
             printf("Nao foram encontrados os dados!\n");
-            CadastrarConta(&usuario);
             fclose(p_dados);
-
+            CadastrarConta(&usuario);
             RegistrarArquivo(arquivoDados, &usuario);
-        } else{
-            // Condição: Arquivo com dados
-            printf("arquivo com coisa");
         }
-
-
-        // CadastrarConta(&usuario);
     }
-
     ListarOpcoes();
     do {
-        printf("\nDigite uma das opcoes acima:");
+        PegarDados(arquivoDados, &usuario);
+        printf("Escolha uma das opcoes do MENU: \n");
         scanf("%d",&menu);
         
         switch (menu) {
@@ -48,27 +42,32 @@ int main(int argc, char *argv[]) {
                 ImprimirDados(&usuario);
             break;
             case 2:
-                printf("\nEscolheu 2\n");
+                ExcluirConta(&usuario, arquivoDados);
+                printf("Excluindo conta...\n");
+                CadastrarConta(&usuario);
+                RegistrarArquivo(arquivoDados, &usuario);
+                ListarOpcoes();
             break;
             case 3:
-                printf("\nEscolheu 3\n");
+                printf("Escolheu 3\n");
             break;
             case 4:
-                printf("\nEscolheu 4\n");
+                printf("Escolheu 4\n");
             break;
             case 5:
                 ListarOpcoes();
             break;
             case 6:
-                printf("\nEscolheu 6\n");
+                printf("Escolheu 6\n");
             break;
             case 7:
-                printf("\nEncerrando o programa.");
+                printf("Encerrando o programa.");
+                return;
             break;
             default:
-                printf("\nVoce escolheu uma opcao invalida.\n");
+                printf("Voce escolheu uma opcao invalida.\n");
         }
-    }   while (menu != 7);
+    }   while (1);
     fclose(arquivoDados);
     return 0;
 }
