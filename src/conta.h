@@ -13,9 +13,11 @@ typedef struct Conta{
 
 //extern p_conta v[MAX];
 
-void Teste();
+void CadastrarConta(struct Conta *p_conta);
 void LerDados(struct Conta *p_conta);
 void ImprimirDados(struct Conta *p_conta);
+void ListarOpcoes();
+void RegistrarArquivo(struct Conta *p_conta, char arquivoDados);
 
 
 #endif //CONTA_H
