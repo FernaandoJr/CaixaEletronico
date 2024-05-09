@@ -17,7 +17,7 @@ void CadastrarConta(struct Conta *p_conta);
 void LerDados(struct Conta *p_conta);
 void ImprimirDados(struct Conta *p_conta);
 void ListarOpcoes();
-void RegistrarArquivo(struct Conta *p_conta, char arquivoDados);
+void RegistrarArquivo(char *arquivoDados, struct Conta *p_conta);
 
 
 #endif //CONTA_H

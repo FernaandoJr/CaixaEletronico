@@ -2,7 +2,9 @@
 #include <string.h>
 #include "conta.h"
 
-int main(void) {
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
     printf("|===================================|\n");
     printf("| Bem vindo (a) ao Caixa Eletronico |\n");
     printf("|===================================|\n\n");
@@ -14,9 +16,9 @@ int main(void) {
     struct Conta usuario;
     int size;
     FILE *p_dados;
-    p_dados = fopen(arquivoDados,"r");
+    p_dados = fopen(arquivoDados,"a+");
     
-    // Verifica se o arquivo está vazio
+    // Verifica se o arquivo foi aberto corretamente
     if(NULL != p_dados){
         fseek (p_dados, 0, SEEK_END);
         size = ftell(p_dados);
@@ -24,11 +26,12 @@ int main(void) {
             // Condição: Arquivo vazio
             printf("Nao foram encontrados os dados!\n");
             CadastrarConta(&usuario);
-            //RegistrarArquivo(&usuario, arquivoDados);
+            fclose(p_dados);
+
+            RegistrarArquivo(arquivoDados, &usuario);
         } else{
             // Condição: Arquivo com dados
             printf("arquivo com coisa");
-
         }
 
 

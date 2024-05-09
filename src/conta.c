@@ -5,6 +5,7 @@
 
 
 void CadastrarConta(struct Conta *p_conta){
+    // Pegar os dados do usuário e colocar dentro da struct
     printf("Cadastrando novo usuario...\n\n");
     printf("Digite o numero da sua conta:\n");
     scanf("%d", &p_conta->numeroConta);
@@ -13,9 +14,6 @@ void CadastrarConta(struct Conta *p_conta){
     gets(p_conta->nomeTitular); 
     printf("Digite o saldo:\n");
     scanf("%lf", &p_conta->saldo);
-
-    
-
 }
 
 void ImprimirDados(struct Conta *p_conta){
@@ -34,7 +32,19 @@ void ListarOpcoes(){
         printf("\t6.Sair\n");
 }
 
-// void RegistrarArquivo(struct Conta *p_conta, char *arquivoDados){
+void RegistrarArquivo(char *arquivoDados, struct Conta *p_conta){
+    FILE *arquivo = fopen("./user/data.txt", "w+");
+    // Verifica se o arquivo foi aberto corretamente
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+    }else{
+        fprintf(arquivo, "%d", p_conta->numeroConta);
+        fprintf(arquivo,"\n");
+        fprintf(arquivo, "%s", p_conta->nomeTitular);
+        fprintf(arquivo,"\n");
+        fprintf(arquivo, "%lf", p_conta->saldo);
+        // Fecha o arquivo
+        fclose(arquivo);
+    }
 
-
-// }
+}
