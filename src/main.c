@@ -28,12 +28,12 @@ int main(int argc, char *argv[]) {
             printf("Nao foram encontrados os dados!\n");
             fclose(p_dados);
             CadastrarConta(&usuario);
-            RegistrarArquivo(arquivoDados, &usuario);
+            RegistrarArquivo(&usuario);
         }
     }
     ListarOpcoes();
     do {
-        PegarDados(arquivoDados, &usuario);
+        AtualizarArquivo(&usuario);
         printf("Escolha uma das opcoes do MENU: \n");
         scanf("%d",&menu);
         
@@ -42,14 +42,14 @@ int main(int argc, char *argv[]) {
                 ImprimirDados(&usuario);
             break;
             case 2:
-                ExcluirConta(&usuario, arquivoDados);
+                ExcluirConta(&usuario);
                 printf("Excluindo conta...\n");
                 CadastrarConta(&usuario);
-                RegistrarArquivo(arquivoDados, &usuario);
+                RegistrarArquivo(&usuario);
                 ListarOpcoes();
             break;
             case 3:
-                printf("Escolheu 3\n");
+                Depositar(&usuario);
             break;
             case 4:
                 printf("Escolheu 4\n");

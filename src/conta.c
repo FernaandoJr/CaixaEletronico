@@ -30,10 +30,10 @@ void ListarOpcoes(){
         printf("\t4.Sacar\n");
         printf("\t5.Relatorio de movimentacoes\n");
         printf("\t6.Listar opcoes\n");
-        printf("\t7.Sair\n");
+        printf("\t7.Sair\n\n");
 }
 
-void RegistrarArquivo(char *arquivoDados, struct Conta *p_conta){
+void RegistrarArquivo(struct Conta *p_conta){
     FILE *arquivo = fopen("./user/data.txt", "w+");
     // Verifica se o arquivo foi aberto corretamente
     if (arquivo == NULL) {
@@ -50,12 +50,15 @@ void RegistrarArquivo(char *arquivoDados, struct Conta *p_conta){
 
 }
 
-void PegarDados(char *ArquivoDados, struct Conta *p_conta){
-    FILE *arquivo = fopen(ArquivoDados,"r");
+void AtualizarArquivo(struct Conta *p_conta){
+    FILE *arquivo = fopen("./user/data.txt", "r");
     // Verifica se o arquivo foi aberto corretamente
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
+    }else{
+        printf("abriu.\n");
+
     }
 
     char linha[256];
@@ -74,8 +77,8 @@ void PegarDados(char *ArquivoDados, struct Conta *p_conta){
     fclose(arquivo);
 }
 
-void ExcluirConta(struct Conta *p_conta, char *arquivoDados){
-    FILE *arquivo = fopen(arquivoDados, "w"); // Abre o arquivo em modo de escrita
+void ExcluirConta(struct Conta *p_conta){
+    FILE *arquivo = fopen("./user/data.txt", "w+"); // Abre o arquivo em modo de escrita
 
     // Verifica se o arquivo foi aberto corretamente
     if (arquivo == NULL) {
@@ -88,5 +91,12 @@ void ExcluirConta(struct Conta *p_conta, char *arquivoDados){
     p_conta->numeroConta = 0;
     p_conta->nomeTitular[0] = '\0';
     p_conta->saldo = 0.0;
+
+}
+
+void Depositar(struct Conta *p_conta){
+    double deposito;
+    printf("Digite o valor a ser depositado: \n");
+    scanf("%lf", &deposito);
 
 }
