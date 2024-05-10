@@ -21,5 +21,6 @@ void RegistrarArquivo(struct Conta *p_conta);
 void ExcluirConta(struct Conta *p_conta);
 void Depositar(struct Conta *p_conta);
 void AtualizarArquivo(struct Conta *p_conta);
+void Sacar(struct Conta *p_conta);
 
 #endif //CONTA_H

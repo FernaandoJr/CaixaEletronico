@@ -57,24 +57,23 @@ void AtualizarArquivo(struct Conta *p_conta){
         printf("Erro ao abrir o arquivo.\n");
         return;
     }else{
-        printf("abriu.\n");
+        char linha[256];
+        fgets(linha, sizeof(linha),arquivo);
+        sscanf(linha, "%d",&p_conta->numeroConta);
 
+        if (fgets(linha, sizeof(linha), arquivo) != NULL) {
+            linha[strcspn(linha, "\n")] = '\0';
+        }
+
+        strcpy(p_conta->nomeTitular,linha);
+
+        fgets(linha, sizeof(linha), arquivo);
+        sscanf(linha, "%lf", &p_conta->saldo);
+
+        fclose(arquivo);
     }
 
-    char linha[256];
-    fgets(linha, sizeof(linha),arquivo);
-    sscanf(linha, "%d",&p_conta->numeroConta);
-
-    if (fgets(linha, sizeof(linha), arquivo) != NULL) {
-        linha[strcspn(linha, "\n")] = '\0';
-    }
-
-    strcpy(p_conta->nomeTitular,linha);
-
-    fgets(linha, sizeof(linha), arquivo);
-    sscanf(linha, "%lf", &p_conta->saldo);
-
-    fclose(arquivo);
+    
 }
 
 void ExcluirConta(struct Conta *p_conta){
@@ -99,4 +98,16 @@ void Depositar(struct Conta *p_conta){
     printf("Digite o valor a ser depositado: \n");
     scanf("%lf", &deposito);
 
+    p_conta->saldo += deposito;
+    RegistrarArquivo(&p_conta);
+}
+void Sacar(struct Conta *p_conta){
+    double saque;
+    printf("Digite o valor a ser sacado: \n");
+    scanf("%lf", &saque);
+    if((p_conta->saldo - saque) <= 0){// trocar por um while
+        printf("Saldo insuficiente, tente sacar um quantia menor\n");
+        return;
+    }
+    p_conta->saldo = p_conta->saldo - saque;
 }

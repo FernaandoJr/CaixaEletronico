@@ -11,8 +11,7 @@ int main(int argc, char *argv[]) {
     int menu = 1;
     struct Conta usuario;
 
-    FILE *p_dados;
-    p_dados = fopen(arquivoDados,"a+");
+    FILE *p_dados = fopen(arquivoDados,"a+");
 
     printf("---------------------------------------\n");
     printf("-- Bem vindo (a) ao Caixa Eletronico --\n");
@@ -50,9 +49,11 @@ int main(int argc, char *argv[]) {
             break;
             case 3:
                 Depositar(&usuario);
+                RegistrarArquivo(&usuario);
             break;
             case 4:
-                printf("Escolheu 4\n");
+                Sacar(&usuario);
+                RegistrarArquivo(&usuario);
             break;
             case 5:
                 ListarOpcoes();
