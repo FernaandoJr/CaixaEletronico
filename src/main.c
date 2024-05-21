@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
     FILE *p_dados = fopen(arquivoDados,"a+");
 
-    printf("***** Caixa Eletronico Helpay ******\n");
+    printf("************ Caixa Eletronico Helpay ************\n");
 
     // Verifica se o arquivo foi aberto corretamente
     if(NULL != p_dados){
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
             RegistrarArquivo(&usuario);
         } else{
             AtualizarArquivo(&usuario);
-            printf("\nBem vindo(a) novamente %s!\n\n",usuario.nomeTitular);
+            printf("\n\tBem vindo(a) novamente %s!\n\n",usuario.nomeTitular);
         }
     }
     AtualizarArquivo(&usuario);
