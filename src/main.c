@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
     FILE *p_dados = fopen(arquivoDados,"a+");
 
-    printf("************ Caixa Eletronico Helpay ************\n");
+    printf("\n************ Caixa Eletronico Helpay ************\n");
 
     // Verifica se o arquivo foi aberto corretamente
     if(NULL != p_dados){

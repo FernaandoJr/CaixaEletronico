@@ -105,6 +105,11 @@ void Depositar(struct Conta *p_conta){
     printf("Digite o valor a ser depositado: ");
     scanf("%lf", &deposito);
 
+    if(deposito < 0){
+        printf("Valor invalido! Tente novamente.");
+        return;
+    }
+
     p_conta->saldo += deposito;
     RegistrarArquivo(p_conta);
     printf("Valor depositado com sucesso!\n");
@@ -116,9 +121,10 @@ void Depositar(struct Conta *p_conta){
 void Sacar(struct Conta *p_conta){
     double saque;
     double saldo_antigo = p_conta->saldo;
+    printf("Valor Disponivel: %.2lf\n", p_conta->saldo);
     printf("Digite o valor a ser sacado: ");
     scanf("%lf", &saque);
-    if((p_conta->saldo - saque) <= 0){// trocar por um while
+    if((p_conta->saldo - saque) < 0){// trocar por um while
         printf("Saldo insuficiente, tente sacar um quantia menor\n");
         return;
     }

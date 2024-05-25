@@ -7,7 +7,7 @@ typedef struct Conta{
     int numeroConta;
     char nomeTitular[100];
     char email[50];
-    unsigned int telefone;
+    int telefone;
     char endereco[100];
     double saldo;
 } item;
