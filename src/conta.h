@@ -7,7 +7,7 @@ typedef struct Conta{
     int numeroConta;
     char nomeTitular[100];
     char email[50];
-    int telefone;
+    char telefone[13];
     char endereco[100];
     double saldo;
 } item;
@@ -30,7 +30,9 @@ void Sacar(struct Conta *p_conta);
 void RegistrarRelatorio(struct Conta *p_conta, double *val_antigo, double *val_atual);
 void ImprimirRelatorio();
 void ExcluirRelatorio();
-void RegistartConsulta();
+void RegistarConsulta();
 void LimparRelatorio();
+void Linha();
+void RecargaCelular(struct Conta *p_conta);
 
 #endif //CONTA_H

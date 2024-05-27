@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <windows.h>
 
 
 void CadastrarConta(struct Conta *p_conta){
@@ -11,31 +12,53 @@ void CadastrarConta(struct Conta *p_conta){
     printf("Digite o numero da sua conta: ");
     scanf("%d", &p_conta->numeroConta);
     fflush(stdin);
+
     printf("Digite o nome do titular da conta: ");
     gets(p_conta->nomeTitular); 
+    fflush(stdin);
+    printf("Digite seu e-mail: ");
+    gets(p_conta->email); 
+
+    printf("Digite seu telefone: ");
+    gets(p_conta->telefone); 
+    fflush(stdin);
+    printf("Digite seu endereco: ");
+    gets(p_conta->endereco);
+
     printf("Digite o saldo: ");
     scanf("%lf", &p_conta->saldo);
-    printf("Conta cadastrada com sucesso!\n");
+
+    system("cls");
+    printf("\nConta cadastrada com sucesso!\n\n");
     RegistrarArquivo(p_conta);
+
+}
+
+void Linha(){
+    printf("*************************************************\n");
 }
 
 void ImprimirDados(struct Conta *p_conta){
+    Linha();
     printf("Numero da conta: %d\n", p_conta->numeroConta);
     printf("Nome do titular: %s\n",p_conta->nomeTitular);
+    printf("Email: %s\n",p_conta->email);
+    printf("telefone: %s\n",p_conta->telefone);
+    printf("endereco: %s\n",p_conta->endereco);
     printf("Saldo disponivel: R$ %.2lf\n", p_conta->saldo);
-    RegistartConsulta();
+    RegistarConsulta();
 }
 
 void ListarOpcoes(){
-        printf("*************************************************\n");
+        Linha();
         printf("1. Visualizar conta\n");
         printf("2. Excluir conta\n");
         printf("3. Depositar\n");
         printf("4. Sacar\n");
-        printf("5. Gerar relatorio da sessao\n");
-        printf("6. Listar opcoes\n");
+        printf("5. Gerar relatorio\n");
+        printf("6. Recarga de celular\n");
         printf("7. Sair\n");
-        printf("*************************************************\n");
+        Linha();
 }
 
 void RegistrarArquivo(struct Conta *p_conta){
@@ -106,7 +129,7 @@ void Depositar(struct Conta *p_conta){
     scanf("%lf", &deposito);
 
     if(deposito < 0){
-        printf("Valor invalido! Tente novamente.");
+        printf("Valor invalido! Tente novamente.\n");
         return;
     }
 
@@ -121,11 +144,15 @@ void Depositar(struct Conta *p_conta){
 void Sacar(struct Conta *p_conta){
     double saque;
     double saldo_antigo = p_conta->saldo;
-    printf("Valor Disponivel: %.2lf\n", p_conta->saldo);
+    printf("Valor disponivel para saque: %.2lf\n", p_conta->saldo);
     printf("Digite o valor a ser sacado: ");
     scanf("%lf", &saque);
     if((p_conta->saldo - saque) < 0){// trocar por um while
         printf("Saldo insuficiente, tente sacar um quantia menor\n");
+        return;
+    }
+    if(saque < 0){
+        printf("Valor invalido! Tente novamente.\n");
         return;
     }
     p_conta->saldo = p_conta->saldo - saque;
@@ -157,9 +184,10 @@ void RegistrarRelatorio(struct Conta *p_conta, double *val_antigo, double *val_a
     fclose(arquivo);
 }
 
-void RegistartConsulta(){
+void RegistarConsulta(){
     FILE *arquivo = fopen("./user/report.txt", "a+");
     // Verifica se o arquivo foi aberto corretamente
+
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
     } else{
@@ -182,12 +210,12 @@ void ImprimirRelatorio() {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
-
+    Linha();
     // Verificar se o arquivo está vazio
     fseek(arquivo, 0, SEEK_END);
     long tamanho = ftell(arquivo);
     if (tamanho == 0) {
-        printf("Nenhuma transacao encontrada.\n");
+        printf("Relatorio nao gerado.\n");
         fclose(arquivo);
         return;
     }
@@ -196,7 +224,7 @@ void ImprimirRelatorio() {
     fseek(arquivo, 0, SEEK_SET);
 
     char linha[256];
-    printf("Relatorio de Transacoes:\n");
+    printf("Relatorio de tranacoes e consultas de saldo:\n");
     while (fgets(linha, sizeof(linha), arquivo)) {
         printf("%s", linha);
     }
@@ -205,4 +233,8 @@ void ImprimirRelatorio() {
 
 void LimparRelatorio(){
     fclose(fopen("./user/report.txt", "w"));
+}
+
+void RecargaCelular(struct Conta *p_conta){
+    int val_recarga = 0;
 }

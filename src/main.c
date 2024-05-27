@@ -2,8 +2,9 @@
 #include <string.h>
 #include "conta.h"
 #include <time.h>
-
 #include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
 
 int main(int argc, char *argv[]) {
     //Declaração de variáveis
@@ -11,11 +12,14 @@ int main(int argc, char *argv[]) {
     char arquivoDados[] = "./user/data.txt";
     char arquivosRelatorio[] = "./user/report.txt";
     int menu = 1;
+    int first_time = 0;
     struct Conta usuario;
 
     FILE *p_dados = fopen(arquivoDados,"a+");
-
+    system("cls");
     printf("\n************ Caixa Eletronico Helpay ************\n");
+
+    
 
     // Verifica se o arquivo foi aberto corretamente
     if(NULL != p_dados){
@@ -30,15 +34,17 @@ int main(int argc, char *argv[]) {
         } else{
             AtualizarArquivo(&usuario);
             printf("\n\tBem vindo(a) novamente %s!\n\n",usuario.nomeTitular);
+
         }
     }
     AtualizarArquivo(&usuario);
     LimparRelatorio();
-    ListarOpcoes();
+    
     do {
-        printf("\nEscolha uma das opcoes: ");
+        ListarOpcoes();
+        printf("Escolha uma das opcoes: ");
         scanf("%d",&menu);
-        printf("\n");
+        system("cls");
         
         switch (menu) {
             case 1:
