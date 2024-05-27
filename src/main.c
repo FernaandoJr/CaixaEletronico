@@ -32,12 +32,12 @@ int main(int argc, char *argv[]) {
             CadastrarConta(&usuario);
             RegistrarArquivo(&usuario);
         } else{
-            AtualizarArquivo(&usuario);
+            SincronizarDados(&usuario);
             printf("\n\tBem vindo(a) novamente %s!\n\n",usuario.nomeTitular);
 
         }
     }
-    AtualizarArquivo(&usuario);
+    SincronizarDados(&usuario);
     LimparRelatorio();
     
     do {
@@ -47,6 +47,11 @@ int main(int argc, char *argv[]) {
         system("cls");
         
         switch (menu) {
+            case 0:
+                system("cls");
+                printf("Encerrando o programa...\nObrigado pela preferencia!");
+                loop = 0;
+            break;
             case 1:
                 ImprimirDados(&usuario);
             break;
@@ -67,11 +72,10 @@ int main(int argc, char *argv[]) {
                 ListarOpcoes();
             break;
             case 7:
-                printf("Encerrando o programa...\nObrigado pela preferencia!");
-                loop = 0;
+            EditarUsuario(&usuario);
             break;
             default:
-                printf("Opcao invalida!");
+                printf("Opcao invalida!\n");
         }
     }   while (loop);
     fclose(p_dados);
