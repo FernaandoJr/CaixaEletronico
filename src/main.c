@@ -69,10 +69,13 @@ int main(int argc, char *argv[]) {
                 ImprimirRelatorio();
             break;
             case 6:
-                ListarOpcoes();
+                RecargaCelular(&usuario);
             break;
             case 7:
-            EditarUsuario(&usuario);
+                EditarUsuario(&usuario);
+            break;
+            case 8:
+                SimulacaoEmprestimo();
             break;
             default:
                 printf("Opcao invalida!\n");

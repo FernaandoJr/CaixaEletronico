@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <windows.h>
+#include <math.h>
 
 
 void capturarEntrada(char *buffer, int tamanho) {
@@ -120,6 +121,7 @@ void ImprimirDados(struct Conta *p_conta){
     printf("Endereco: %s\n",p_conta->endereco);
     printf("CEP: %u\n",p_conta->CEP);
     printf("Saldo atual: R$ %.2lf\n", p_conta->saldo);
+    printf("Credito de celular: R$ %.2lf\n", p_conta->credito_tel);
     RegistarConsulta();
 }
 
@@ -132,6 +134,7 @@ void ListarOpcoes(){
         printf("5. Gerar relatorio\n");
         printf("6. Recarga de celular\n");
         printf("7. Editar conta\n");
+        printf("8. Simular Emprestimo\n");
         printf("0. Sair\n");
         Linha();
 }
@@ -155,6 +158,8 @@ void RegistrarArquivo(struct Conta *p_conta){
         fprintf(arquivo, "%u", p_conta->CEP);
         fprintf(arquivo,"\n");
         fprintf(arquivo, "%lf", p_conta->saldo);
+        fprintf(arquivo,"\n");
+        fprintf(arquivo, "%lf", p_conta->credito_tel);
         // Fecha o arquivo
         fclose(arquivo);
     }
@@ -194,6 +199,11 @@ void SincronizarDados(struct Conta *p_conta){
 
         fgets(linha, sizeof(linha), arquivo);
         sscanf(linha, "%lf", &p_conta->saldo);
+        
+        fgets(linha, sizeof(linha), arquivo);
+        sscanf(linha, "%lf", &p_conta->credito_tel);
+        
+        
 
         fclose(arquivo);
     }
@@ -214,6 +224,8 @@ void ExcluirConta(struct Conta *p_conta){
     p_conta->numeroConta = 0;
     p_conta->nomeTitular[0] = '\0';
     p_conta->saldo = 0.0;
+    p_conta->CEP = 0;
+    p_conta->credito_tel = 0;
     LimparRelatorio();
     printf("Excluindo conta...\n");
 }
@@ -320,7 +332,7 @@ void ImprimirRelatorio() {
     fseek(arquivo, 0, SEEK_SET);
 
     char linha[256];
-    printf("Relatorio de tranacoes e consultas de saldo:\n");
+    printf("Relatorio de transacoes e consultas de saldo:\n");
     while (fgets(linha, sizeof(linha), arquivo)) {
         printf("%s", linha);
     }
@@ -332,7 +344,27 @@ void LimparRelatorio(){
 }
 
 void RecargaCelular(struct Conta *p_conta){
-    int val_recarga = 0;
+    double val_recarga = 100;
+    printf("Credito atual: R$ %.2lf\n",p_conta->credito_tel);
+    printf("Saldo disponivel: R$ %.2lf\n", p_conta->saldo);
+    printf("Digite o valor da recarga: ");
+    scanf("%lf", &val_recarga);
+    system("cls");
+
+    if(val_recarga < 0){
+        printf("Valor invalido! Tente novamente.\n");
+        return;
+    }
+
+    if(val_recarga > p_conta->saldo){
+        printf("Saldo insuficiente para realizar a recarga!\n");
+    } else{
+        p_conta->saldo -= val_recarga;
+        printf("Recarga de R$ %.2lf realizada no numero %s\n", val_recarga, p_conta->telefone);
+        p_conta->credito_tel =+ val_recarga;
+        printf("Novo saldo: %.2lf\n", p_conta->saldo);
+    }
+    RegistrarArquivo(p_conta);
 }
 
 void EditarUsuario(struct Conta *p_conta){
@@ -416,4 +448,32 @@ void EditarUsuario(struct Conta *p_conta){
 
 void DadosSucesso(){
     printf("Dados alterados com sucesso!\n");
+}
+
+void SimulacaoEmprestimo(){
+    system("cls");
+    printf("Iniciando simulacao de emprestimo: \n");
+    double val_emprestimo;
+    double taxa_anual;
+    int prazo_meses;
+    while(1){
+
+        LerFloat("Digite o valor do emprestimo: ", &val_emprestimo);
+        LerFloat("Digite o valor da taxa anual (em %): ", &taxa_anual);
+        LerInt("Digite o prazo (em meses): ",&prazo_meses);
+
+        printf("%lf",val_emprestimo);
+        printf("%lf",taxa_anual);
+        printf("%d",prazo_meses);
+
+
+
+
+    }
+}
+
+double ParcelaMensal(double valorEmprestimo, double taxaJurosAnual, int prazoMeses){
+    double taxaJurosMensal = taxaJurosAnual / 12 / 100;
+    double parcelaMensal = (valorEmprestimo * taxaJurosAnual)/(1 - pow(1 + taxaJurosMensal, -prazoMeses));
+    return parcelaMensal;
 }

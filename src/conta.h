@@ -11,6 +11,8 @@ typedef struct Conta{
     char endereco[100];
     unsigned int CEP;
     double saldo;
+    double credito_tel;
+    double limite_saque;
 } item;
 
 // typedef Conta *p_conta;
@@ -36,6 +38,7 @@ void LimparRelatorio();
 void Linha();
 void RecargaCelular(struct Conta *p_conta);
 void EditarUsuario(struct Conta *p_conta);
+void SimulacaoEmprestimo();
 void limparBuffer();
 void capturarEntrada(char *buffer, int tamanho);
 void LerFloat(const char *prompt, double *numero);
