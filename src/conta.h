@@ -7,7 +7,7 @@ typedef struct Conta{
     int numeroConta;
     char nomeTitular[100];
     char email[50];
-    char telefone[13];
+    long long telefone;
     char endereco[100];
     unsigned int CEP;
     double saldo;
@@ -20,6 +20,7 @@ typedef struct Conta{
 //extern p_conta v[MAX];
 
 
+void LerLongLong(const char *prompt, long long *numero);
 void LerTexto(char *buffer, int tamanho);
 void CadastrarConta(struct Conta *p_conta);
 void LerDados(struct Conta *p_conta);
@@ -44,6 +45,9 @@ void capturarEntrada(char *buffer, int tamanho);
 void LerFloat(const char *prompt, double *numero);
 void LerUnsignedInt(const char *prompt, unsigned int *numero);
 void LerInt(const char *prompt,int *numero);
+double CalcularParcelaMensal(double valorEmprestimo, double taxaJurosAnual, int prazoMeses);
+void RegistrarRecargaCelular(struct Conta *p_conta, double val_recarga);
 void DadosSucesso();
+void RegistrarEdicao(const char *prompt, struct Conta *p_conta);
 
 #endif //CONTA_H

@@ -1,8 +1,8 @@
-1
+3123
 fernando
-fernando@
-1992391231
-rua rio claro
-1313912
-0.000000
-100.000000
+fernando@tes.com
+123123123
+rua rio claro77
+13843196
+1071.000000
+11.000000

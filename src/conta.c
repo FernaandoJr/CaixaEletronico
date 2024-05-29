@@ -53,6 +53,19 @@ void LerInt(const char *prompt, int *numero) {
     }
 }
 
+void LerLongLong(const char *prompt, long long *numero) {
+    char buffer[50];
+    while (1) {
+        printf("%s", prompt);
+        capturarEntrada(buffer, sizeof(buffer));
+        if (sscanf(buffer, "%lld", numero) == 1) {
+            break;
+        } else {
+            printf("Entrada invalida. Por favor, digite um numero valido.\n");
+        }
+    }
+}
+
 
 // Função para ler um número de ponto flutuante com validação
 void LerFloat(const char *prompt, double *numero) {
@@ -76,6 +89,7 @@ void limparBuffer() {
 
 
 void CadastrarConta(struct Conta *p_conta){
+    int email_check = 1;
     // Pegar os dados do usuário e colocar dentro da struct
     printf("Cadastrando uma nova conta...\n");
     limparBuffer();
@@ -86,13 +100,18 @@ void CadastrarConta(struct Conta *p_conta){
     capturarEntrada(p_conta->nomeTitular, sizeof(p_conta->nomeTitular));
 
 
+    while(email_check){
+        printf("Digite seu e-mail: ");
+        capturarEntrada(p_conta->email, sizeof(p_conta->email));
+        if(strchr(p_conta->email, '@') != NULL && strchr(p_conta->email, '@') != NULL){
+            email_check = 0;
+        } else{
+            printf("Digite um e-mail valido contendo '@' e '.'\n");
+        }
+    }
 
-    printf("Digite seu e-mail: ");
-    capturarEntrada(p_conta->email, sizeof(p_conta->email));
 
-
-    printf("Digite seu telefone: ");
-    capturarEntrada(p_conta->telefone, sizeof(p_conta->telefone));
+    LerLongLong("Digite seu telefone: ", &p_conta->telefone);
 
 
     printf("Digite seu endereco: ");
@@ -117,7 +136,7 @@ void ImprimirDados(struct Conta *p_conta){
     printf("Numero da conta: %d\n", p_conta->numeroConta);
     printf("Nome: %s\n",p_conta->nomeTitular);
     printf("Email: %s\n",p_conta->email);
-    printf("Telefone: %s\n",p_conta->telefone);
+    printf("Telefone: %lld\n",p_conta->telefone);
     printf("Endereco: %s\n",p_conta->endereco);
     printf("CEP: %u\n",p_conta->CEP);
     printf("Saldo atual: R$ %.2lf\n", p_conta->saldo);
@@ -151,7 +170,7 @@ void RegistrarArquivo(struct Conta *p_conta){
         fprintf(arquivo,"\n");
         fprintf(arquivo, "%s", p_conta->email);
         fprintf(arquivo,"\n");
-        fprintf(arquivo, "%s", p_conta->telefone);
+        fprintf(arquivo, "%lld", p_conta->telefone);
         fprintf(arquivo,"\n");
         fprintf(arquivo, "%s", p_conta->endereco);
         fprintf(arquivo,"\n");
@@ -187,7 +206,7 @@ void SincronizarDados(struct Conta *p_conta){
         sscanf(linha, "%s", &p_conta->email);
 
         fgets(linha, sizeof(linha), arquivo);
-        sscanf(linha, "%s", &p_conta->telefone);
+        sscanf(linha, "%lld", &p_conta->telefone);
 
         if (fgets(linha, sizeof(linha), arquivo) != NULL) {
             linha[strcspn(linha, "\n")] = '\0';
@@ -243,6 +262,7 @@ void Depositar(struct Conta *p_conta){
 
     p_conta->saldo += deposito;
     RegistrarArquivo(p_conta);
+    system("cls");
     printf("Valor depositado com sucesso!\n");
     printf("Seu saldo foi de R$ %.2lf para R$ %.2lf\n", saldo_antigo,p_conta->saldo);
     RegistrarRelatorio(p_conta, &saldo_antigo, &p_conta->saldo);
@@ -264,6 +284,7 @@ void Sacar(struct Conta *p_conta){
         return;
     }
     p_conta->saldo = p_conta->saldo - saque;
+    system("cls");
     printf("Valor sacado com sucesso!\n");
     printf("Seu saldo foi de R$ %.2lf para R$ %.2lf\n", saldo_antigo,p_conta->saldo);
     RegistrarArquivo(p_conta);
@@ -313,17 +334,19 @@ void RegistarConsulta(){
 
 void ImprimirRelatorio() {
     FILE *arquivo = fopen("./user/report.txt", "a+");
+    system("cls");
     // Verifica se o arquivo foi aberto corretamente
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return;
     }
-    Linha();
+    
     // Verificar se o arquivo está vazio
     fseek(arquivo, 0, SEEK_END);
     long tamanho = ftell(arquivo);
     if (tamanho == 0) {
         printf("Relatorio nao gerado.\n");
+        Linha();
         fclose(arquivo);
         return;
     }
@@ -333,6 +356,7 @@ void ImprimirRelatorio() {
 
     char linha[256];
     printf("Relatorio de transacoes e consultas de saldo:\n");
+    Linha();
     while (fgets(linha, sizeof(linha), arquivo)) {
         printf("%s", linha);
     }
@@ -343,33 +367,74 @@ void LimparRelatorio(){
     fclose(fopen("./user/report.txt", "w"));
 }
 
+void RegistrarRecargaCelular(struct Conta *p_conta, double val_recarga){
+    FILE *arquivo = fopen("./user/report.txt", "a+");
+    // Verifica se o arquivo foi aberto corretamente
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+    } else{
+        time_t agora = time(NULL);
+        struct tm *infoTempo = localtime(&agora);
+        char dataHora[20];
+        strftime(dataHora, sizeof(dataHora), "%d/%m/%Y %H:%M:%S", infoTempo);
+
+        fprintf(arquivo, "[%s] - Recarga de R$ %.2lf realizada no numero %lld",dataHora,val_recarga,p_conta->telefone);
+        fprintf(arquivo,"\n");
+
+    }
+    fclose(arquivo);
+}
+
 void RecargaCelular(struct Conta *p_conta){
-    double val_recarga = 100;
+    double val_recarga;
     printf("Credito atual: R$ %.2lf\n",p_conta->credito_tel);
     printf("Saldo disponivel: R$ %.2lf\n", p_conta->saldo);
-    printf("Digite o valor da recarga: ");
-    scanf("%lf", &val_recarga);
+    LerFloat("Digite o valor da recarga: ", &val_recarga);
     system("cls");
+
 
     if(val_recarga < 0){
         printf("Valor invalido! Tente novamente.\n");
         return;
     }
-
+    
     if(val_recarga > p_conta->saldo){
         printf("Saldo insuficiente para realizar a recarga!\n");
     } else{
         p_conta->saldo -= val_recarga;
-        printf("Recarga de R$ %.2lf realizada no numero %s\n", val_recarga, p_conta->telefone);
+        printf("Recarga de R$ %.2lf realizada no numero %lld\n", val_recarga, p_conta->telefone);
         p_conta->credito_tel =+ val_recarga;
-        printf("Novo saldo: %.2lf\n", p_conta->saldo);
+        printf("Saldo atualizado: %.2lf\n", p_conta->saldo);
+
     }
     RegistrarArquivo(p_conta);
+    RegistrarRecargaCelular(p_conta, val_recarga);
 }
+
+void RegistrarEdicao(const char *prompt, struct Conta *p_conta){
+    FILE *arquivo = fopen("./user/report.txt", "a+");
+    // Verifica se o arquivo foi aberto corretamente
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+    } else{
+        time_t agora = time(NULL);
+        struct tm *infoTempo = localtime(&agora);
+        char dataHora[20];
+        strftime(dataHora, sizeof(dataHora), "%d/%m/%Y %H:%M:%S", infoTempo);
+
+        fprintf(arquivo, "[%s] - %s foi alterado",dataHora,prompt);
+        fprintf(arquivo,"\n");
+
+    }
+    fclose(arquivo);
+}
+
+
 
 void EditarUsuario(struct Conta *p_conta){
     int input = 1;
     int loop_editar = 1;
+    int email_check = 1;
 
     do { 
         printf("Selecione o que deseja editar:\n");
@@ -381,9 +446,8 @@ void EditarUsuario(struct Conta *p_conta){
         printf("5. CEP\n");
         printf("0. Sair\n");
         Linha();
-        
-        printf("Escolha uma das opcoes: ");
-        scanf("%d",&input);
+
+        LerInt("Escolha uma das opcoes: ", &input);
         switch(input){
         case 0:
             system("cls");
@@ -393,8 +457,8 @@ void EditarUsuario(struct Conta *p_conta){
             system("cls");
             printf("Nome atual: %s\n",p_conta->nomeTitular);
             printf("Nome editado: ");
-            limparBuffer();
             capturarEntrada(p_conta->nomeTitular, sizeof(p_conta->nomeTitular));
+            RegistrarEdicao("Nome",p_conta);
             RegistrarArquivo(p_conta);
             system("cls");
             DadosSucesso();
@@ -405,17 +469,26 @@ void EditarUsuario(struct Conta *p_conta){
             printf("Email atual: %s\n",p_conta->email);
             printf("Email editado: ");
             limparBuffer();
-            capturarEntrada(p_conta->email, sizeof(p_conta->email));
+
+            while(email_check){
+                capturarEntrada(p_conta->email, sizeof(p_conta->email));
+                if(strchr(p_conta->email, '@') != NULL && strchr(p_conta->email, '.') != NULL){
+                    email_check = 0;
+                } else{
+                    printf("Digite um e-mail valido contendo '@' e '.'\n");
+                }
+            }
+            RegistrarEdicao("Email",p_conta);
             RegistrarArquivo(p_conta);
             system("cls");
             DadosSucesso();
             break;
         case 3:
             system("cls");
-            printf("Telefone atual: %s\n",p_conta->telefone);
-            printf("Telefone editado: ");
-            limparBuffer();
-            capturarEntrada(p_conta->telefone, sizeof(p_conta->telefone));
+            printf("Telefone atual: %lld\n",p_conta->telefone);
+            
+            LerLongLong("Telefone editado: ", &p_conta->telefone);
+            RegistrarEdicao("Telefone",p_conta);
             RegistrarArquivo(p_conta);
             system("cls");
             DadosSucesso();
@@ -424,8 +497,9 @@ void EditarUsuario(struct Conta *p_conta){
             system("cls");
             printf("Endereco atual: %s\n",p_conta->endereco);
             printf("Endereco editado: ");
-            limparBuffer();
+            
             capturarEntrada(p_conta->endereco, sizeof(p_conta->endereco));
+            RegistrarEdicao("Endereco",p_conta);
             RegistrarArquivo(p_conta);
             system("cls");
             DadosSucesso();
@@ -433,8 +507,9 @@ void EditarUsuario(struct Conta *p_conta){
         case 5:
             system("cls");
             printf("CEP atual: %u\n",p_conta->CEP);
-            limparBuffer();
+            
             LerUnsignedInt("CEP editado: ", &p_conta->CEP);
+            RegistrarEdicao("CEP",p_conta);
             RegistrarArquivo(p_conta);
             system("cls");
             DadosSucesso();
@@ -452,28 +527,35 @@ void DadosSucesso(){
 
 void SimulacaoEmprestimo(){
     system("cls");
-    printf("Iniciando simulacao de emprestimo: \n");
+    printf("Iniciando simulacao de emprestimo...\n");
     double val_emprestimo;
     double taxa_anual;
     int prazo_meses;
-    while(1){
-
+    char sair;
+    int menu = 1;
         LerFloat("Digite o valor do emprestimo: ", &val_emprestimo);
         LerFloat("Digite o valor da taxa anual (em %): ", &taxa_anual);
         LerInt("Digite o prazo (em meses): ",&prazo_meses);
 
-        printf("%lf",val_emprestimo);
-        printf("%lf",taxa_anual);
-        printf("%d",prazo_meses);
+        double parcelaMensal = CalcularParcelaMensal(val_emprestimo, taxa_anual, prazo_meses);
+
+        system("cls");
+        Linha();
+        printf("Dados do emprestimo simulado:\n\n");
+        printf("Valor do emprestimo: R$ %.2lf \n", val_emprestimo);
+        printf("Total de parcelas: %d \n", prazo_meses);
+        printf("Taxa anual: %.2lf%% \n", taxa_anual);
 
 
-
-
-    }
+        printf("Juros devidos: R$ %.2lf\n", fabs(val_emprestimo - (parcelaMensal * prazo_meses)));
+        printf("Parcela mensal: R$ %.2f\n", parcelaMensal);
+        printf("Montante total a ser pago: R$ %.2f", parcelaMensal * prazo_meses);
+        printf("\n");
 }
 
-double ParcelaMensal(double valorEmprestimo, double taxaJurosAnual, int prazoMeses){
+double CalcularParcelaMensal(double valorEmprestimo, double taxaJurosAnual, int prazoMeses) {
     double taxaJurosMensal = taxaJurosAnual / 12 / 100;
-    double parcelaMensal = (valorEmprestimo * taxaJurosAnual)/(1 - pow(1 + taxaJurosMensal, -prazoMeses));
+    double parcelaMensal = (valorEmprestimo * taxaJurosMensal) / (1 - pow(1 + taxaJurosMensal, -prazoMeses));
     return parcelaMensal;
 }
+

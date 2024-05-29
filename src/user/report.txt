@@ -1,0 +1,2 @@
+[28/05/2024 23:45:46] - Email foi alterado
+[28/05/2024 23:45:48] - Consulta de saldo

@@ -12,14 +12,11 @@ int main(int argc, char *argv[]) {
     char arquivoDados[] = "./user/data.txt";
     char arquivosRelatorio[] = "./user/report.txt";
     int menu = 1;
-    int first_time = 0;
     struct Conta usuario;
 
     FILE *p_dados = fopen(arquivoDados,"a+");
     system("cls");
     printf("\n************ Caixa Eletronico Helpay ************\n");
-
-    
 
     // Verifica se o arquivo foi aberto corretamente
     if(NULL != p_dados){
