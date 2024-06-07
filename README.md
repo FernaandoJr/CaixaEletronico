@@ -232,4 +232,4 @@ Este projeto está licenciado sob a Apache License. Veja o arquivo [LICENSE](./L
 
 ## <a id="agradecimentos">🙏 Agradecimentos</a>
 
-Obrigado por visitar nosso repositório! Esperamos que você ache nosso projeto útil e interessante.
+❤️ Obrigado por visitar nosso repositório! Esperamos que você ache nosso projeto útil e interessante.
