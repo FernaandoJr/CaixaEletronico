@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
             RegistrarArquivo(&usuario);
         } else{
             SincronizarDados(&usuario);
-            printf("\n\tBem vindo(a) novamente %s!\n\n",usuario.nomeTitular);
+            printf("\nBem vindo(a) novamente %s!\n\n",usuario.nomeTitular);
 
         }
     }

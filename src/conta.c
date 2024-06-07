@@ -119,7 +119,7 @@ void CadastrarConta(struct Conta *p_conta){
 
     LerUnsignedInt("Digite o CEP: ", &p_conta->CEP);
 
-    LerFloat("Digite o saldo: ", &p_conta->saldo);
+    
 
     system("cls");
     printf("\nConta cadastrada com sucesso!\n\n");
@@ -252,7 +252,7 @@ void ExcluirConta(struct Conta *p_conta){
 void Depositar(struct Conta *p_conta){
     double deposito;
     double saldo_antigo = p_conta->saldo;
-    printf("Digite o valor a ser depositado: ");
+    printf("Digite o valor a ser depositado: R$ ");
     scanf("%lf", &deposito);
 
     if(deposito < 0){
@@ -272,8 +272,8 @@ void Depositar(struct Conta *p_conta){
 void Sacar(struct Conta *p_conta){
     double saque;
     double saldo_antigo = p_conta->saldo;
-    printf("Valor disponivel para saque: %.2lf\n", p_conta->saldo);
-    printf("Digite o valor a ser sacado: ");
+    printf("Valor disponivel para saque: R$ %.2lf\n", p_conta->saldo);
+    printf("Digite o valor a ser sacado: R$ ");
     scanf("%lf", &saque);
     if((p_conta->saldo - saque) < 0){// trocar por um while
         printf("Saldo insuficiente, tente sacar um quantia menor\n");
@@ -468,8 +468,6 @@ void EditarUsuario(struct Conta *p_conta){
             system("cls");
             printf("Email atual: %s\n",p_conta->email);
             printf("Email editado: ");
-            limparBuffer();
-
             while(email_check){
                 capturarEntrada(p_conta->email, sizeof(p_conta->email));
                 if(strchr(p_conta->email, '@') != NULL && strchr(p_conta->email, '.') != NULL){
