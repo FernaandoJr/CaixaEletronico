@@ -1,6 +1,18 @@
-﻿# 🏦 Projeto Simulador de Caixa Eletrônico
+﻿# Projeto Simulador de Caixa Eletrônico
 
-## 🏫 Faculdade de Tecnologia de Mogi Mirim
+## 💼 Informações sobre o Trabalho
+
+**Faculdade de Tecnologia de Mogi Mirim**
+
+**Curso:** Análise e Desenvolvimento de Sistemas (Noturno)
+
+**Matérias:**
+- Linguagem de Programação
+- Engenharia de Software I
+
+**Professores:**
+- Marcos Roberto Moraes (Maromo)
+- Ana Celia Ribeiro Bizigato Portes
 
 **Autores:**
 - 👩‍💻 Adryelle Caroline de Souza Calefi
@@ -8,34 +20,56 @@
 - 👩‍💻 Tabata Etiele Roberto da Silva
 - 👨‍💻 Fernando Divino de Moraes Júnior
 
-## 🌟 Visão do Produto
+
+## 📚 Índice
+- [Visão do Produto](#visao-do-produto)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Problemas e Soluções](#problemas-e-solucoes)
+- [Product Backlog](#product-backlog)
+- [Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
+- [Fluxo de Eventos](#fluxo-de-eventos)
+  - [Fluxo Básico](#fluxo-basico)
+      - [Fluxo Alternativo](#fluxo-alternativo)
+- [Diagrama de Atividades](#diagrama-de-atividades)
+- [Guia do Usuário](#guia-do-usuario)
+- [Conclusão](#conclusao)
+- [Licença](#licenca)
+- [Agradecimentos](#agradecimentos)
+
+## <a id="visao-do-produto">🌟 Visão do Produto</a>
 
 O **Helpay** é um simulador de caixa eletrônico desenvolvido em C, oferecendo uma interface de linha de comando que emula com precisão as funcionalidades de um caixa eletrônico real. O simulador permite a realização de transações bancárias como saques, depósitos, verificação de saldos, transferências, pagamentos de contas e impressão de extratos, proporcionando uma experiência prática e educativa.
 
-## 📚 Índice
+## <a id="tecnologias-utilizadas">🔗 Tecnologias Utilizadas</a>
 
-1. [📋 Product Backlog](#product-backlog)
-2. [📊 Diagrama de Casos de Uso](#diagrama-de-casos-de-uso)
-3. [🔄 Fluxo de Eventos](#fluxo-de-eventos)
-    - [🔀 Fluxo Básico](#fluxo-básico)
-    - [⚠️ Fluxo Alternativo](#fluxo-alternativo)
-4. [🛠️ Diagrama de Atividades](#diagrama-de-atividades)
-5. [❓ Problemas e Soluções](#problemas-e-soluções)
-6. [✅ Conclusão](#conclusão)
-7. [📝 Guia do Usuário](#guia-do-usuário)
-8. [🔗 Link do GitHub](#link-do-github)
+- Linguagem C
+- Visual Studio Code (VSCode)
+- MinGW
+- CLion
 
-## 📋 Product Backlog
+## <a id="problemas-e-solucoes">❓ Problemas e Soluções</a>
+
+### Problema: Interface de Usuário Intuitiva
+
+**Solução:** 
+Desenvolvemos uma interface de linha de comando com opções claras e compreensíveis para cada tipo de transação. Mensagens de feedback são utilizadas para orientar os usuários durante todo o processo, garantindo uma experiência positiva e sem complicações.
+
+### Problema: Desenvolver uma Documentação Clara
+
+**Solução:** 
+Criamos uma documentação detalhada com tópicos claros para cada aspecto do projeto, incluindo diagramas e explicações simples para garantir que os usuários possam tirar dúvidas e procurar soluções de forma eficiente.
+
+## <a id="product-backlog">📋 Product Backlog</a>
 
 ![Product Backlog](./src/imgs/Aspose.Words.d8b88800-e4df-4e99-b4f9-4bfa6ed6f399.001.jpeg)
 
-## 📊 Diagrama de Casos de Uso
+## <a id="diagrama-de-casos-de-uso">📊 Diagrama de Casos de Uso</a>
 
 ![Diagrama de Casos de Uso](./src/imgs/Aspose.Words.d8b88800-e4df-4e99-b4f9-4bfa6ed6f399.002.jpeg)
 
-## 🔄 Fluxo de Eventos
+## <a id="fluxo-de-eventos">🔄 Fluxo de Eventos</a>
 
-### 🔀 Fluxo Básico
+### <a id="fluxo-basico">🔀 Fluxo Básico</a>
 
 1. 🟢 O sistema abre o menu de opções.
 2. 🔍 O cliente seleciona uma opção verificar dados.
@@ -100,7 +134,7 @@ O **Helpay** é um simulador de caixa eletrônico desenvolvido em C, oferecendo 
 61. 🧹 O sistema limpa o relatório.
 62. 🚪 O sistema sai.
 
-### ⚠️ Fluxo Alternativo
+#### <a id="fluxo-alternativo">⚠️ Fluxo Alternativo</a>
 
 - 17a. 📧 O cliente informa um email errado, o sistema retorna mensagem de erro.
 - 20a. 📞 O cliente informa um telefone errado, o sistema retorna mensagem de erro.
@@ -108,29 +142,11 @@ O **Helpay** é um simulador de caixa eletrônico desenvolvido em C, oferecendo 
 - 31a. 💸 O cliente informa um valor negativo para depósito, o sistema retorna mensagem de erro.
 - 38a. 💸 O cliente informa um valor negativo para saque, o sistema retorna mensagem de erro.
 
-## 🛠️ Diagrama de Atividades
+## <a id="diagrama-de-atividades">🛠️ Diagrama de Atividades</a>
 
 ![Diagrama de Atividades](./src/imgs/Aspose.Words.d8b88800-e4df-4e99-b4f9-4bfa6ed6f399.003.jpeg)
 
-## ❓ Problemas e Soluções
-
-### Problema: Interface de Usuário Intuitiva
-
-**Solução:** 
-Desenvolvemos uma interface de linha de comando com opções claras e compreensíveis para cada tipo de transação. Mensagens de feedback são utilizadas para orientar os usuários durante todo o processo, garantindo uma experiência positiva e sem complicações.
-
-### Problema: Desenvolver uma Documentação Clara
-
-**Solução:** 
-Criamos uma documentação detalhada com tópicos claros para cada aspecto do projeto, incluindo diagramas e explicações simples para garantir que os usuários possam tirar dúvidas e procurar soluções de forma eficiente.
-
-## ✅ Conclusão
-
-O projeto de simulação de caixa eletrônico alcançou seus objetivos, fornecendo uma ferramenta prática e educativa para entender as funcionalidades básicas de um caixa eletrônico. As operações simuladas incluem consulta de saldo, depósito, saque, recarga de celular e simulação de empréstimos, proporcionando uma experiência interativa e realista.
-
-Ressaltamos que o projeto tem caráter didático e não substitui um caixa eletrônico real. As transações simuladas não têm efeito no mundo real e não devem ser usadas para operações bancárias reais.
-
-## 📝 Guia do Usuário
+## <a id="guia-do-usuario">📝 Guia do Usuário</a>
 
 1. **Visualizar seus dados:**
    - Selecione a opção 1 no menu, “Visualizar Dados”.
@@ -203,4 +219,17 @@ Ressaltamos que o projeto tem caráter didático e não substitui um caixa eletr
     - ![Simular Empréstimo](./src/imgs/Aspose.Words.d8b88800-e4df-4e99-b4f9-4bfa6ed6f399.025.jpeg)
     - ![Dados do Empréstimo](./src/imgs/Aspose.Words.d8b88800-e4df-4e99-b4f9-4bfa6ed6f399.026.png)
     - ![Simulação de Empréstimo](./src/imgs/Aspose.Words.d8b88800-e4df-4e99-b4f9-4bfa6ed6f399.027.png)
-    
+
+## <a id="conclusao">✅ Conclusão</a>
+
+O projeto de simulação de caixa eletrônico alcançou seus objetivos, fornecendo uma ferramenta prática e educativa para entender as funcionalidades básicas de um caixa eletrônico. As operações simuladas incluem consulta de saldo, depósito, saque, recarga de celular e simulação de empréstimos, proporcionando uma experiência interativa e realista.
+
+Ressaltamos que o projeto tem caráter didático e não substitui um caixa eletrônico real. As transações simuladas não têm efeito no mundo real e não devem ser usadas para operações bancárias reais.
+
+## <a id="licenca">📜 Licença</a>
+
+Este projeto está licenciado sob a Apache License. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
+## <a id="agradecimentos">🙏 Agradecimentos</a>
+
+Obrigado por visitar nosso repositório! Esperamos que você ache nosso projeto útil e interessante.
