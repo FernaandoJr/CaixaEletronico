@@ -7,12 +7,12 @@
 **Curso:** Análise e Desenvolvimento de Sistemas (Noturno)
 
 **Matérias:**
-- Linguagem de Programação
-- Engenharia de Software I
+- 🧑🏻‍💻Linguagem de Programação
+- 🖥️Engenharia de Software I
 
 **Professores:**
-- Marcos Roberto Moraes (Maromo)
-- Ana Celia Ribeiro Bizigato Portes
+- 👨🏻‍🏫Marcos Roberto Moraes (Maromo)
+- 👩🏻‍🏫Ana Celia Ribeiro Bizigato Portes
 
 **Autores:**
 - 👩‍💻 Adryelle Caroline de Souza Calefi
