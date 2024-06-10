@@ -7,7 +7,6 @@
 #include <windows.h>
 
 int main(int argc, char *argv[]) {
-    //Declaração de variáveis
     int loop = 1;
     char arquivoDados[] = "./user/data.txt";
     char arquivosRelatorio[] = "./user/report.txt";
@@ -18,12 +17,10 @@ int main(int argc, char *argv[]) {
     system("cls");
     printf("\n************ Caixa Eletronico Helpay ************\n");
 
-    // Verifica se o arquivo foi aberto corretamente
     if(NULL != p_dados){
         fseek (p_dados, 0, SEEK_END);
         int size = ftell(p_dados);
         if(size == 0){
-            // Condição: Arquivo vazio
             printf("Nao foram encontrados os dados!\n");
             fclose(p_dados);
             CadastrarConta(&usuario);

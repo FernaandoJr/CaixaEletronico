@@ -15,11 +15,6 @@ typedef struct Conta{
     double limite_saque;
 } item;
 
-// typedef Conta *p_conta;
-
-//extern p_conta v[MAX];
-
-
 void LerLongLong(const char *prompt, long long *numero);
 void LerTexto(char *buffer, int tamanho);
 void CadastrarConta(struct Conta *p_conta);

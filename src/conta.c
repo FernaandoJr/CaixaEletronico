@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <math.h>
 
-
+// Função para capturar entrada do usuário
 void capturarEntrada(char *buffer, int tamanho) {
     // Continua solicitando entrada até que uma entrada válida seja fornecida
     do {
@@ -26,7 +26,7 @@ void capturarEntrada(char *buffer, int tamanho) {
     } while (buffer[0] == '\0'); // Continua enquanto a entrada estiver vazia
 }
 
-// Função para ler um número inteiro com validação
+// Função para ler um número inteiro sem sinal com validação
 void LerUnsignedInt(const char *prompt, unsigned int *numero) {
     char buffer[50];
     while (1) {
@@ -40,6 +40,7 @@ void LerUnsignedInt(const char *prompt, unsigned int *numero) {
     }
 }
 
+// Função para ler um número inteiro com validação
 void LerInt(const char *prompt, int *numero) {
     char buffer[50];
     while (1) {
@@ -53,6 +54,7 @@ void LerInt(const char *prompt, int *numero) {
     }
 }
 
+// Função para ler um número long long com validação
 void LerLongLong(const char *prompt, long long *numero) {
     char buffer[50];
     while (1) {
@@ -65,7 +67,6 @@ void LerLongLong(const char *prompt, long long *numero) {
         }
     }
 }
-
 
 // Função para ler um número de ponto flutuante com validação
 void LerFloat(const char *prompt, double *numero) {
@@ -81,83 +82,70 @@ void LerFloat(const char *prompt, double *numero) {
     }
 }
 
-
+// Função para limpar o buffer do teclado
 void limparBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-
-void CadastrarConta(struct Conta *p_conta){
+// Função para cadastrar uma nova conta
+void CadastrarConta(struct Conta *p_conta) {
     int email_check = 1;
-    // Pegar os dados do usuário e colocar dentro da struct
     printf("Cadastrando uma nova conta...\n");
     limparBuffer();
-    
     LerInt("Digite o numero da sua conta: ", &p_conta->numeroConta);
-
     printf("Digite o nome do titular da conta: ");
     capturarEntrada(p_conta->nomeTitular, sizeof(p_conta->nomeTitular));
 
-
-    while(email_check){
+    while (email_check) {
         printf("Digite seu e-mail: ");
         capturarEntrada(p_conta->email, sizeof(p_conta->email));
-        if(strchr(p_conta->email, '@') != NULL && strchr(p_conta->email, '@') != NULL){
+        if (strchr(p_conta->email, '@') != NULL && strchr(p_conta->email, '.') != NULL) {
             email_check = 0;
-        } else{
+        } else {
             printf("Digite um e-mail valido contendo '@' e '.'\n");
         }
     }
 
-
     LerLongLong("Digite seu telefone: ", &p_conta->telefone);
-
-
     printf("Digite seu endereco: ");
     capturarEntrada(p_conta->endereco, sizeof(p_conta->endereco));
-
     LerUnsignedInt("Digite o CEP: ", &p_conta->CEP);
-
-    
-
     system("cls");
     printf("\nConta cadastrada com sucesso!\n\n");
     RegistrarArquivo(p_conta);
-
 }
 
-void Linha(){
-    printf("*************************************************\n");
-}
-
-void ImprimirDados(struct Conta *p_conta){
+// Função para imprimir os dados da conta
+void ImprimirDados(struct Conta *p_conta) {
     Linha();
     printf("Numero da conta: %d\n", p_conta->numeroConta);
-    printf("Nome: %s\n",p_conta->nomeTitular);
-    printf("Email: %s\n",p_conta->email);
-    printf("Telefone: %lld\n",p_conta->telefone);
-    printf("Endereco: %s\n",p_conta->endereco);
-    printf("CEP: %u\n",p_conta->CEP);
+    printf("Nome: %s\n", p_conta->nomeTitular);
+    printf("Email: %s\n", p_conta->email);
+    printf("Telefone: %lld\n", p_conta->telefone);
+    printf("Endereco: %s\n", p_conta->endereco);
+    printf("CEP: %u\n", p_conta->CEP);
     printf("Saldo atual: R$ %.2lf\n", p_conta->saldo);
     printf("Credito de celular: R$ %.2lf\n", p_conta->credito_tel);
     RegistarConsulta();
 }
 
-void ListarOpcoes(){
-        Linha();
-        printf("1. Visualizar conta\n");
-        printf("2. Excluir conta\n");
-        printf("3. Depositar\n");
-        printf("4. Sacar\n");
-        printf("5. Gerar relatorio\n");
-        printf("6. Recarga de celular\n");
-        printf("7. Editar conta\n");
-        printf("8. Simular Emprestimo\n");
-        printf("0. Sair\n");
-        Linha();
+// Função para listar as opções do menu
+void ListarOpcoes() {
+    Linha();
+    printf("1. Visualizar conta\n");
+    printf("2. Excluir conta\n");
+    printf("3. Depositar\n");
+    printf("4. Sacar\n");
+    printf("5. Gerar relatorio\n");
+    printf("6. Recarga de celular\n");
+    printf("7. Editar conta\n");
+    printf("8. Simular Emprestimo\n");
+    printf("0. Sair\n");
+    Linha();
 }
 
+// Função para registrar os dados da conta no arquivo
 void RegistrarArquivo(struct Conta *p_conta){
     FILE *arquivo = fopen("./user/data.txt", "w+");
     // Verifica se o arquivo foi aberto corretamente
