@@ -1,3 +1,26 @@
+/**
+ * Função principal do programa Caixa Eletrônico Helpay.
+ * 
+ * Este programa simula um caixa eletrônico, permitindo ao usuário realizar diversas operações bancárias.
+ * O programa lê os dados do usuário de um arquivo de dados e permite ao usuário realizar operações como:
+ * - Visualizar os dados da conta
+ * - Excluir a conta atual e cadastrar uma nova conta
+ * - Realizar depósitos na conta
+ * - Realizar saques da conta
+ * - Visualizar o relatório de transações
+ * - Realizar recarga de celular
+ * - Editar os dados do usuário
+ * - Simular um empréstimo
+ * 
+ * O programa utiliza arquivos para armazenar os dados do usuário e o relatório de transações.
+ * 
+ * @param argc O número de argumentos de linha de comando.
+ * @param argv Um array de strings contendo os argumentos de linha de comando.
+ * @return O código de status da execução do programa.
+ */
+int main(int argc, char *argv[]) {
+    // ...
+}
 #include <stdio.h>
 #include <string.h>
 #include "conta.h"
